@@ -1,3 +1,4 @@
+require('dotenv').config()
 const express = require('express')
 const fs = require('fs')
 const morgan = require('morgan')
@@ -26,5 +27,9 @@ app.get('*', function (req, res) {
   res.redirect('/')
 })
 
-app.listen(8080)
-console.log('Listening on port 8080...')
+if (!process.env.PORT) {
+  console.log('Please add a "PORT" entry to your .env file.')
+} else {
+  app.listen(process.env.PORT)
+  console.log(`Listening on port ${process.env.PORT}...`)
+}
